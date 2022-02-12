@@ -10,4 +10,4 @@ In the vehicle spawn function of the police cars.
 Make sure the export name matched your resource name.
 Resmon: 0.02 - 0.04
 
-Special thanks to all the HighDevelopment members for populating the fivem community with content and helping eachoter.
+Special thanks to all the HighDevelopment members for populating the fivem community with content and helping each other.
