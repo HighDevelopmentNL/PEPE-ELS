@@ -1,0 +1,174 @@
+body {
+ overflow: hidden;
+ user-select: none;
+ font-weight: 600;
+ font-family: 'Lato', sans-serif;
+ margin: 0;
+}
+
+.light-containter {
+ display: none;
+ position: absolute;
+ bottom: 1vh;
+ left: 63vh;
+ width: 64vh;
+ height: 8vh;
+ background-color: rgba(0, 0, 0, 0.5);
+}
+
+.light-button {
+ background-color: #2b2b2b;
+ width: 5vh;
+ height: 5vh;
+ border-radius: 50px;
+ margin-top: -1.6vh;
+}
+
+.light-button > p {
+ color: white;
+ margin-top: 1vh;
+ margin-left: 1.8vh;
+ font-size: 2vh;
+}
+
+.light-icon {
+ position: relative;
+ float: left;
+ margin-left: 3.3vh;
+ margin-top: 2.2vh;
+}
+
+.light-button:hover {
+ background-color: #424242;
+}
+
+.tooltiptext {
+ visibility: hidden;
+ width: 120px;
+ background-color: rgba(0, 0, 0, 0.8);
+ color: #fff;
+ text-align: center;
+ padding: 5px 2px;
+ position: absolute;
+ z-index: 1;
+ bottom: 10vh;
+ left: 50%;
+ margin-left: -60px;
+ opacity: 0;
+ transition: opacity 0.3s;
+}
+  
+.light-button:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.clicked-light {
+    background-color: #1e992ebc;
+}
+
+.clicked-light-1 {
+    animation: Emergency-1 2s infinite;
+}
+
+.clicked-light-2 {
+    animation: Emergency-2 2s infinite;
+}
+
+.clicked-light-3 {
+    animation: Emergency-3 2s infinite;
+}
+
+.clicked-light-4 {
+    animation: Emergency-4 2s infinite;
+}
+
+@keyframes Emergency-1 {
+    0% { 
+        background-color: #1e3799bc;
+    }
+    10% { 
+        background-color: #1e6c99bc;
+    }
+    20% { 
+        background-color: #301899bc;
+    }
+    30% { 
+        background-color: #1e6c99bc;
+    }
+    40% { 
+        background-color: #1e3799bc;
+    }
+    50% { 
+        background-color: #1e6c99bc;
+    }
+    60% { 
+        background-color: #301899bc;
+    }
+    70% { 
+        background-color: #1e6c99bc;
+    }
+    80% { 
+        background-color: #1e3799bc;
+    }
+    90% { 
+        background-color: #1e6c99bc;
+    }
+    100% { 
+        background-color: #1e3799bc;
+    }
+}
+
+@keyframes Emergency-2 {
+    0% { 
+        background-color: #99591ebc;
+    }
+    25% { 
+        background-color: #997c1ebc;
+    }
+    50% { 
+        background-color: #99591ebc;
+    }
+    75% { 
+        background-color: #997c1ebc;
+    }
+    100% { 
+        background-color: #99591ebc;
+    }
+}
+
+@keyframes Emergency-3 {
+    0% { 
+        background-color: #1e992ebc;
+    }
+    25% { 
+        background-color: #156d1cbc;
+    }
+    50% { 
+        background-color: #1e992ebc;
+    }
+    75% { 
+        background-color: #156d1cbc;
+    }
+    100% { 
+        background-color: #1e992ebc;
+    }
+}
+
+@keyframes Emergency-4 {
+    0% { 
+        background-color: #991e1ebc;
+    }
+    25% { 
+        background-color: #5d1111bc;
+    }
+    50% { 
+        background-color: #991e1ebc;
+    }
+    75% { 
+        background-color: #5d1111bc;
+    }
+    100% { 
+        background-color: #991e1ebc;
+    }
+}
