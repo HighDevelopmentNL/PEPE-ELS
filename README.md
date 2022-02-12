@@ -11,3 +11,4 @@ Make sure the export name matched your resource name.
 Resmon: 0.02 - 0.04
 
 Special thanks to all the HighDevelopment members for populating the fivem community with content and helping each other.
+Showcase: https://streamable.com/szjyos
