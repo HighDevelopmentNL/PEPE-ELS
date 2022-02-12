@@ -8,3 +8,4 @@ In the vehicle spawn function of the police cars.
 
 
 Make sure the export name matched your resource name.
+Resmon: 0.02 - 0.04
