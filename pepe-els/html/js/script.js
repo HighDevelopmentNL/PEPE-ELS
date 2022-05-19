@@ -45,32 +45,32 @@ $(document).on('click', '.light-button', function(e) {
         if (CurrentLightId.data('lightid') == 'orange') {
             $(this).data('state', 'off')
             $(this).removeClass("clicked-light-2");
-            $.post(`http://pepe-els/SetLights`, JSON.stringify({Type: 'Oranje', State: 1}));
-            $.post(`http://pepe-els/RegisterButton`, JSON.stringify({Type: 'Orange', State: false}));
+            $.post(`https://pepe-els/SetLights`, JSON.stringify({Type: 'Oranje', State: 1}));
+            $.post(`https://pepe-els/RegisterButton`, JSON.stringify({Type: 'Orange', State: false}));
         } else if (CurrentLightId.data('lightid') == 'green') {
             $(this).data('state', 'off')
             $(this).removeClass("clicked-light-3");
-            $.post(`http://pepe-els/SetLights`, JSON.stringify({Type: 'Groen', State: 1}));
-            $.post(`http://pepe-els/RegisterButton`, JSON.stringify({Type: 'Green', State: false}));
+            $.post(`https://pepe-els/SetLights`, JSON.stringify({Type: 'Groen', State: 1}));
+            $.post(`https://pepe-els/RegisterButton`, JSON.stringify({Type: 'Green', State: false}));
         } else if (CurrentLightId.data('lightid') == 'stop') {
             $(this).data('state', 'off')
             $(this).removeClass("clicked-light-4"); 
-            $.post(`http://pepe-els/SetLights`, JSON.stringify({Type: 'Stop', State: 1}));
-            $.post(`http://pepe-els/RegisterButton`, JSON.stringify({Type: 'Stop', State: false}));
+            $.post(`https://pepe-els/SetLights`, JSON.stringify({Type: 'Stop', State: 1}));
+            $.post(`https://pepe-els/RegisterButton`, JSON.stringify({Type: 'Stop', State: false}));
         } else if (CurrentLightId.data('lightid') == 'volg') {
             $(this).data('state', 'off')
             $(this).removeClass("clicked-light-4"); 
-            $.post(`http://pepe-els/SetLights`, JSON.stringify({Type: 'Volg', State: 1}));
-            $.post(`http://pepe-els/RegisterButton`, JSON.stringify({Type: 'Follow', State: false}));
+            $.post(`https://pepe-els/SetLights`, JSON.stringify({Type: 'Volg', State: 1}));
+            $.post(`https://pepe-els/RegisterButton`, JSON.stringify({Type: 'Follow', State: false}));
         } else if (CurrentLightId.data('lightid') == 'siren') {
             $(this).data('state', 'off')
             $(this).removeClass("clicked-light-1");           
-            $.post(`http://pepe-els/SetSirens`, JSON.stringify({Bool: false}));
-            $.post(`http://pepe-els/RegisterButton`, JSON.stringify({Type: 'Siren', State: false}));
+            $.post(`https://pepe-els/SetSirens`, JSON.stringify({Bool: false}));
+            $.post(`https://pepe-els/RegisterButton`, JSON.stringify({Type: 'Siren', State: false}));
         } else if (CurrentLightId.data('lightid') == 'blue/blue') {
             $(this).data('state', 'off')
             $(this).removeClass("clicked-light-1");
-            $.post(`http://pepe-els/SetLights`, JSON.stringify({Type: 'Blauw', State: 1}));
+            $.post(`https://pepe-els/SetLights`, JSON.stringify({Type: 'Blauw', State: 1}));
             $.post(`http://pepe-els/RegisterButton`, JSON.stringify({Type: 'Blue', State: false}));
         } else if (CurrentLightId.data('lightid') == 'pit') { 
             $(this).data('state', 'off')
@@ -121,7 +121,7 @@ ResetAll = function() {
 }
 
 DoClick = function() {
-    $.post(`http://pepe-els/Click`, JSON.stringify({}));
+    $.post(`https://pepe-els/Click`, JSON.stringify({}));
 }
 
 CloseLightControl = function() {
