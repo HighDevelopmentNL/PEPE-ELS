@@ -1,5 +1,7 @@
 Config = Config or {}
 
+Config.Framework = "qbcore" -- set your framework : qbcore / esx
+
 Config.UiOpend = false
 
 Config.ButtonData = {}
@@ -14,7 +16,7 @@ Config.SirenData = {
       ['IsUnmarked'] = false,
       ['LightSettings'] = {
         ['Blauw'] = {1},
-        ['Oranje'] = {2}, 
+        ['Oranje'] = {2},
         ['Groen'] = {},
         ['Stop'] = {3},
         ['Volg'] = {4},

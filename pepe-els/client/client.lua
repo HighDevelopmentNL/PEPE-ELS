@@ -1,16 +1,23 @@
 ESX = nil
 local LoggedIn = false
+if Config.Framework == "qbcore" then
+    QBCore = exports['qb-core']:GetCoreObject()
+end
 
 Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
-	end
-
-    ESX.TriggerServerCallback("HighEls:server:get:config", function(config)
-        Config = config
-    end)
-
+	if Config.Framework == "esx" then
+        while ESX == nil do
+            TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+            Citizen.Wait(10)
+        end
+        ESX.TriggerServerCallback("HighEls:server:get:config", function(config)
+            Config = config
+        end)
+    elseif Config.Framework == "qbcore" then
+        QBCore.Functions.TriggerCallback("HighEls:server:get:config", function(config)
+            Config = config
+        end)
+    end
     LoggedIn = true
 end)
 
@@ -19,41 +26,44 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(4)
-        if LoggedIn then
-             if IsControlJustPressed(0, 19) then
-                if GetVehicleClass(GetVehiclePedIsIn(GetPlayerPed(-1))) == 18 then
-                    if not Config.UiOpend then
-                        Config.UiOpend = true
-                        SendNUIMessage({
-                            action = 'open',
-                            buttondata = Config.ButtonData[GetVehicleNumberPlateText(GetVehiclePedIsIn(GetPlayerPed(-1)))],
-                            isunmarked = IsVehicleUnmarked(GetEntityModel(GetVehiclePedIsIn(GetPlayerPed(-1))))
-                        })
-                        SetNuiFocus(true, true)
-                        SetNuiFocusKeepInput(true, true)
-                        DisableControlAction(0, 1, true)
-                        DisableControlAction(0, 2, true)
-                        TriggerServerEvent('HighEls:server:set:sounds:disabled')
-                        SetVehicleAutoRepairDisabled(GetVehiclePedIsIn(GetPlayerPed(-1)), true)
+        local playerped = PlayerPedId()
+        if IsPedInAnyVehicle(playerped, false) then
+            local veh = GetVehiclePedIsUsing(playerped)
+            if GetPedInVehicleSeat(veh, -1) == playerped then
+                local vehclass = GetVehicleClass(veh)
+                if IsControlJustPressed(0, 19) then
+                    if vehclass == 18 then
+                        if not Config.UiOpend then
+                            Config.UiOpend = true
+                            SendNUIMessage({
+                                action = 'open',
+                                buttondata = Config.ButtonData[GetVehicleNumberPlateText(veh)],
+                                isunmarked = IsVehicleUnmarked(GetEntityModel(veh))
+                            })
+                            SetNuiFocus(true, true)
+                            SetNuiFocusKeepInput(true, true)
+                            DisableControlAction(0, 1, true)
+                            DisableControlAction(0, 2, true)
+                            TriggerServerEvent('HighEls:server:set:sounds:disabled')
+                            SetVehicleAutoRepairDisabled(veh, true)
+                        end
                     end
                 end
-             end
-             if IsControlJustReleased(0, 19) then
-                if GetVehicleClass(GetVehiclePedIsIn(GetPlayerPed(-1))) == 18 then
-                    if Config.UiOpend then
-                        Config.UiOpend = false
-                        SendNUIMessage({
-                            action = 'close'
-                        })
-                        SetNuiFocus(false, false)
-                        SetNuiFocusKeepInput(false, false)
-                        TriggerServerEvent('HighEls:server:set:sounds:disabled')
-                        SetVehicleAutoRepairDisabled(GetVehiclePedIsIn(GetPlayerPed(-1)), true)
+                if IsControlJustReleased(0, 19) then
+                    if vehclass == 18 then
+                        if Config.UiOpend then
+                            Config.UiOpend = false
+                            SendNUIMessage({
+                                action = 'close'
+                            })
+                            SetNuiFocus(false, false)
+                            SetNuiFocusKeepInput(false, false)
+                            TriggerServerEvent('HighEls:server:set:sounds:disabled')
+                            SetVehicleAutoRepairDisabled(veh, true)
+                        end
                     end
                 end
-             end
-        else
-            Citizen.Wait(1500)
+            end
         end
     end
 end)
@@ -99,7 +109,7 @@ end)
 RegisterNetEvent('HighEls:client:toggle:sounds')
 AddEventHandler('HighEls:client:toggle:sounds', function(Sender, State)
     local SelfPed = GetPlayerPed(GetPlayerFromServerId(Sender))
-    local Vehicle = GetVehiclePedIsIn(SelfPed)
+    local Vehicle = GetVehiclePedIsUsing(SelfPed)
     local ModelName = GetEntityModel(Vehicle)
     ToggleVehicleSirens(Vehicle, ModelName, GetVehicleNumberPlateText(Vehicle), State)
     ToggleMuteDefaultSiren(Vehicle, true)
@@ -108,7 +118,7 @@ end)
 RegisterNetEvent('HighEls:client:set:sounds:disabled')
 AddEventHandler('HighEls:client:set:sounds:disabled', function(Sender)
     local SelfPed = GetPlayerPed(GetPlayerFromServerId(Sender))
-    local Vehicle = GetVehiclePedIsIn(SelfPed)
+    local Vehicle = GetVehiclePedIsUsing(SelfPed)
     ToggleMuteDefaultSiren(Vehicle, true)
 end)
 
@@ -138,14 +148,14 @@ RegisterNUICallback('Click', function()
 end)
 
 RegisterNUICallback('RegisterButton', function(data)
-    local Vehicle = GetVehiclePedIsIn(GetPlayerPed(-1))
+    local Vehicle = GetVehiclePedIsUsing(PlayerPedId())
     local Plate = GetVehicleNumberPlateText(Vehicle)
     TriggerServerEvent('HighEls:server:update:button', data, Plate)
 end)
 
 RegisterNUICallback('SetLights', function(data)
     local Count = 0
-    local Vehicle = GetVehiclePedIsIn(GetPlayerPed(-1))
+    local Vehicle = GetVehiclePedIsUsing(PlayerPedId())
     local ModelName = GetEntityModel(Vehicle)
     if data.State == 1 then
         for k, v in pairs(Config.SirenData[ModelName]['LightSettings'][data.Type]) do
@@ -174,7 +184,7 @@ end)
 function IsVehicleUnmarked(VehicleModel)
     if Config.SirenData[VehicleModel]['IsUnmarked'] then
         return true
-    else 
+    else
         return false
     end
 end
