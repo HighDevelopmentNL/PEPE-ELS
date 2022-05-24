@@ -71,12 +71,12 @@ $(document).on('click', '.light-button', function(e) {
             $(this).data('state', 'off')
             $(this).removeClass("clicked-light-1");
             $.post(`https://pepe-els/SetLights`, JSON.stringify({Type: 'Blauw', State: 1}));
-            $.post(`http://pepe-els/RegisterButton`, JSON.stringify({Type: 'Blue', State: false}));
+            $.post(`https://pepe-els/RegisterButton`, JSON.stringify({Type: 'Blue', State: false}));
         } else if (CurrentLightId.data('lightid') == 'pit') { 
             $(this).data('state', 'off')
             $(this).removeClass("clicked-light-1");
-            $.post(`http://pepe-els/SetLights`, JSON.stringify({Type: 'Pit', State: 1}));
-            $.post(`http://pepe-els/RegisterButton`, JSON.stringify({Type: 'Pit', State: false}));
+            $.post(`https://pepe-els/SetLights`, JSON.stringify({Type: 'Pit', State: 1}));
+            $.post(`https://pepe-els/RegisterButton`, JSON.stringify({Type: 'Pit', State: false}));
         }
     }
 });
