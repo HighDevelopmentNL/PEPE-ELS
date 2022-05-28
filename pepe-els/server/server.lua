@@ -1,10 +1,17 @@
-ESX = nil
+if Config.Framework == "esx" then
+    ESX = nil
+    TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+    ESX.RegisterServerCallback('HighEls:server:get:config', function(source, cb)
+        cb(Config)
+    end)
+elseif Config.Framework == "qbcore" then
+    QBCore = exports['qb-core']:GetCoreObject()
 
-ESX.RegisterServerCallback('HighEls:server:get:config', function(source, cb)
-    cb(Config)
-end)
+    QBCore.Functions.CreateCallback('HighEls:server:get:config', function(source, cb)
+        cb(Config)
+    end)
+end
 
 RegisterServerEvent('HighEls:server:setup:first:time')
 AddEventHandler('HighEls:server:setup:first:time', function(Plate)
